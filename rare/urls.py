@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+from rareapi.views import UserViewSet
+
+router = DefaultRouter(trailing_slash=False)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login', UserViewSet.as_view({'post': 'user_login'}), name='login'),
 ]
