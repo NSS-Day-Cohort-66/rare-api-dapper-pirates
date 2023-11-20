@@ -37,9 +37,10 @@ class UserViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['post'], url_path='login')
     def user_login(self, request):
-        email = request.data.get('email')
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-        user = authenticate(email=email)
+        user = authenticate(request=request, username=username, password=password)
 
         if user:
             token = Token.objects.get(user=user)
