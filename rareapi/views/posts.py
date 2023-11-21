@@ -2,10 +2,12 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework import serializers
 from rareapi.models import Post
+from .categories import CategorySerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
+    category = CategorySerializer(many=False)
     
     def get_is_owner(self, obj):
         # Check if the authenticated user is the owner
@@ -13,7 +15,7 @@ class PostSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Post
-        fields = ['id', 'is_owner', 'user_id', 'title', 'publication_date', 'image_url', 'content', 'category_id', 'approved']
+        fields = ['id', 'is_owner', 'user_id', 'title', 'publication_date', 'image_url', 'content', 'category', 'approved']
  
 
 class PostViewSet(viewsets.ViewSet):
