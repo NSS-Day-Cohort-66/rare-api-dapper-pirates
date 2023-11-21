@@ -34,3 +34,16 @@ class UserViewSet(viewsets.ViewSet):
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['post'], url_path='login')
+    def user_login(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        user = authenticate(request=request, username=username, password=password)
+
+        if user:
+            token = Token.objects.get(user=user)
+            return Response({'token': token.key}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
