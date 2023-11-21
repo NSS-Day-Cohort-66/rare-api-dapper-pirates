@@ -21,7 +21,15 @@ class PostSerializer(serializers.ModelSerializer):
 class PostViewSet(viewsets.ViewSet):
 
     def list(self, request):
-        posts = Post.objects.all()
+        category_id = request.query_params.get('category')
+
+        if category_id is not None:
+            # If category ID is provided, filter posts by category
+            posts = Post.objects.filter(category__id=category_id)
+        else:
+            # If no category ID is provided, get all posts
+            posts = Post.objects.all()
+    
         serializer = PostSerializer(posts, many=True, context={'request': request})
         return Response(serializer.data)
 
