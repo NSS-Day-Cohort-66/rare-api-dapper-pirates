@@ -1,0 +1,28 @@
+[
+  {
+    "model": "rareapi.post",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "category": 2,
+      "title": "Check this out",
+      "publication_date": "2023-11-16",
+      "image_url": "https://d.newsweek.com/en/full/1920025/cat-its-mouth-open.jpg?w=1600&h=1600&q=88&f=b7a44663e082b8041129616b6b73328d",
+      "content": "This is something you all need to see!",
+      "approved": true
+    }
+  },
+  {
+    "model": "rareapi.post",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "category": 4,
+      "title": "Interesting Finance Article",
+      "publication_date": "2023-11-16",
+      "image_url": "https://i.pinimg.com/originals/08/57/56/08575650a8c85ab363cadf10a66d2486.jpg",
+      "content": "Quick and easy way to make money. Just share to 100 people!",
+      "approved": true
+    }
+  }
+]
