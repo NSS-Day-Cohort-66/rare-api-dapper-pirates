@@ -7,5 +7,5 @@ class Comment(models.Model):
         "Post", on_delete=models.CASCADE, related_name='comments')
     commenter = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='user_post')
-    publication_date = models.DateField(auto_now_add=True)
+    created_on = models.DateField(auto_now_add=True)
     content = models.CharField(max_length=1000)
