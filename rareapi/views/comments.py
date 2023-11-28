@@ -44,7 +44,7 @@ class CommentViewSet(viewsets.ViewSet):
         comment.commenter = request.user
         comment.post = post_commented
         comment.content = request.data['content']
-        comment.created_on = request.data['created_on']
+        comment.created_on = comment.created_on
         comment.save()
 
         try:
