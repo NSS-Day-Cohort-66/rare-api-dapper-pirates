@@ -22,3 +22,16 @@ class CategoryViewSet(viewsets.ViewSet):
             return Response(serializer.data)
         except Category.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    def create(self, request):
+        label = request.data.get('label')
+
+        # creating the actual post
+        post = Category.objects.create(
+            label=label
+        )
+
+        # For a future many to many, code can be placed here if needed
+
+        serializer = CategorySerializer(post, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
