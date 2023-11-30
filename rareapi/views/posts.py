@@ -61,7 +61,7 @@ class PostViewSet(viewsets.ViewSet):
         # getting data from the client's JSON payload
         category = Category.objects.get(pk=request.data["category"])
         title = request.data.get('title')
-        publication_date = request.data.get('publication_date')
+        #publication_date = request.data.get('publication_date')
         image_url = request.data.get('image_url')
         content = request.data.get('content')
         approved = request.data.get('approved')
@@ -71,7 +71,6 @@ class PostViewSet(viewsets.ViewSet):
             user=request.user,
             category=category,
             title=title,
-            publication_date=publication_date,
             image_url=image_url,
             content=content,
             approved=approved
