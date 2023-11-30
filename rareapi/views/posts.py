@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from rareapi.models import Post
+from rareapi.models import Post, Category
 from .categories import CategorySerializer
 
 
@@ -14,7 +14,7 @@ class PostAuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['author']
+        fields = ['id','author']
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -59,7 +59,7 @@ class PostViewSet(viewsets.ViewSet):
 
     def create(self, request):
         # getting data from the client's JSON payload
-        category = request.data.get('category')
+        category = Category.objects.get(pk=request.data["category"])
         title = request.data.get('title')
         publication_date = request.data.get('publication_date')
         image_url = request.data.get('image_url')
