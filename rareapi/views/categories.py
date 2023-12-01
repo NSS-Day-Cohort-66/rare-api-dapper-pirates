@@ -56,3 +56,17 @@ class CategoryViewSet(viewsets.ViewSet):
 
         except Category.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+ 
+    def destroy(self, request, pk=None):
+        try:
+            
+            category = Category.objects.get(pk=pk)
+            #check whether user has permission to delete
+            self.check_object_permissions(request, category)
+            # method call on the category instance, and it is used to delete the corresponding record
+            category.delete()
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
