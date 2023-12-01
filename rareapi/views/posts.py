@@ -80,3 +80,31 @@ class PostViewSet(viewsets.ViewSet):
 
         serializer = PostSerializer(post, context={'request': request})
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def update(self, request, pk=None):
+        
+        try:
+
+            post = Post.objects.get(pk=pk)
+           
+
+          
+            self.check_object_permissions(request, post)
+
+            serializer = PostSerializer(data=request.data)
+            if serializer.is_valid():
+                post.user = request.auth.user
+                post.title = serializer.validated_data['title']
+                post.content = serializer.validated_data['content']
+                category_id = request.data["category"]["id"]
+                post.category = Category.objects.get(pk=category_id)
+                post.image_url = serializer.validated_data['image_url']
+                post.save()
+
+                serializer = PostSerializer(post, context={'request': request})
+                return Response(None, status.HTTP_202_ACCEPTED)
+
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+        except Post.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
